@@ -8,18 +8,20 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(Catch2)
 #FetchContent_GetProperties(Catch2 Catch2_SOURCE_DIR)
-#set(CATCH_INCLUDE_DIR ${source_dir}/include CACHE INTERNAL "Path")
+set(SRC_INCLUDE_PATH ${CMAKE_SOURCE_DIR}/src)
 file(GLOB SRC ./*.cpp)
 
 add_executable(tests ${SRC})
-target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
+target_link_libraries(tests PRIVATE Catch2::Catch2WithMain tod)
 message("this is funcing mess ${Catch2_SOURCE_DIR}")
+message("this is funcing mess ${SRC_INCLUDE_PATH}")
 
-target_include_directories(tests INTERFACE ${SRC_INCLUDE_PATH})
+target_include_directories(tests PRIVATE ${SRC_INCLUDE_PATH})
 
 #target_include_directories(tests INTERFACE ${Catch2_SOURCE_DIR}/src)
 
-add_test (NAME MyTest COMMAND Test)
+add_test (NAME MyTest COMMAND tests)
+add_test (NAME MyTest-1 COMMAND tests)
 
 
 
