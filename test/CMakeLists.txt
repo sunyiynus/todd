@@ -18,7 +18,6 @@ message("this is funcing mess ${SRC_INCLUDE_PATH}")
 
 target_include_directories(tests PRIVATE ${SRC_INCLUDE_PATH})
 
-#target_include_directories(tests INTERFACE ${Catch2_SOURCE_DIR}/src)
 
 add_test (NAME MyTest COMMAND tests)
 add_test (NAME MyTest-1 COMMAND tests)
