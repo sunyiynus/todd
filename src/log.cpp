@@ -6,6 +6,10 @@
 
 using namespace todd;
 
+const char* LogLevelStr[] = {
+    " ", "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "FATAL"
+};
+
 Logger::Logger()
     :output(stdout)
     , outputLogLv(LogLevel::DEBUG)
@@ -26,7 +30,7 @@ void Logger::printLog(LogLevel lv, char const* format, ...)
     va_list ap;
     int count;
 
-    va_start(ap, count);
+    va_start(ap, format);
     if (lv >= outputLogLv) {
         std::string result = printTime() + "[" + LogLevelStr[static_cast<int>(lv)] + "]: " + std::string(format);
         std::fprintf(getOutput(), result.c_str(), ap);
@@ -45,8 +49,7 @@ const std::string Logger::printTime()
 void Logger::trace(const char *format, ...)
 {
     std::va_list ap;
-    int count;
-    va_start(ap, count);
+    va_start(ap, format);
     printLog(LogLevel::TRACE, format, ap);
     va_end(ap);
 }
@@ -55,8 +58,7 @@ void Logger::trace(const char *format, ...)
 void Logger::info(char const* format, ...)
 {
     std::va_list ap;
-    int count;
-    va_start(ap, count);
+    va_start(ap, format);
     printLog(LogLevel::INFO, format, ap);
     va_end(ap);
 }
@@ -65,8 +67,7 @@ void Logger::info(char const* format, ...)
 void Logger::debug(char const* format, ...)
 {
     std::va_list ap;
-    int count;
-    va_start(ap, count);
+    va_start(ap, format);
     printLog(LogLevel::DEBUG, format, ap);
     va_end(ap);
 }
@@ -75,8 +76,7 @@ void Logger::debug(char const* format, ...)
 void Logger::warning(char const* format, ...)
 {
     std::va_list ap;
-    int count;
-    va_start(ap, count);
+    va_start(ap, format);
     printLog(LogLevel::WARN, format, ap);
     va_end(ap);
 }
@@ -85,8 +85,7 @@ void Logger::warning(char const* format, ...)
 void Logger::error(char const* format, ...)
 {
     std::va_list ap;
-    int count;
-    va_start(ap, count);
+    va_start(ap, format);
     printLog(LogLevel::WARN, format, ap);
     va_end(ap);
 }
@@ -95,8 +94,7 @@ void Logger::error(char const* format, ...)
 void Logger::fatal(char const* format, ...)
 {
     std::va_list ap;
-    int count;
-    va_start(ap, count);
+    va_start(ap, format);
     printLog(LogLevel::WARN, format, ap);
     va_end(ap);
 }
@@ -114,6 +112,11 @@ void Logger::setOutputFile(const std::string &fname)
     }
     std::FILE* outputfile = fopen(fname.c_str(), "a");
     output = outputfile;
+}
+
+std::FILE* Logger::getOutput()
+{
+    return output;
 }
 
 

@@ -20,10 +20,6 @@ enum class LogLevel{
 };
 
 
-const char* LogLevelStr[] = {
-    " ", "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "FATAL"
-};
-
 class Logger
 {
 public:
@@ -57,7 +53,7 @@ private:
     LogLevel outputLogLv;
 };
 
-Logger& Logger::logger()
+inline Logger& Logger::logger()
 {
     static Logger logger;
     return logger;
