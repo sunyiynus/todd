@@ -7,12 +7,17 @@
 using namespace todd;
 
 const char* LogLevelStr[] = {
-    " ", "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "FATAL"
+    " ", "TRACE", 
+         "DEBUG", 
+         "INFOR", 
+         "WARNI", 
+         "ERROR",
+         "FATAL"
 };
 
 Logger::Logger()
     :output(stdout)
-    , outputLogLv(LogLevel::DEBUG)
+    , outputLogLv(LogLevel::TRACE)
     , outputFlag(1)
 {
 }
@@ -31,9 +36,9 @@ void Logger::printLog(LogLevel lv, char const* format, ...)
     int count;
 
     va_start(ap, format);
-    if (lv >= outputLogLv) {
+    if (static_cast<int>(lv) >= static_cast<int>(outputLogLv)) {
         std::string result = printTime() + "[" + LogLevelStr[static_cast<int>(lv)] + "]: " + std::string(format);
-        std::fprintf(getOutput(), result.c_str(), ap);
+        std::vfprintf(getOutput(), result.c_str(), ap);
     }
     va_end(ap);
 }
@@ -86,7 +91,7 @@ void Logger::error(char const* format, ...)
 {
     std::va_list ap;
     va_start(ap, format);
-    printLog(LogLevel::WARN, format, ap);
+    printLog(LogLevel::ERROR, format, ap);
     va_end(ap);
 }
 
@@ -95,7 +100,7 @@ void Logger::fatal(char const* format, ...)
 {
     std::va_list ap;
     va_start(ap, format);
-    printLog(LogLevel::WARN, format, ap);
+    printLog(LogLevel::FATAL, format, ap);
     va_end(ap);
 }
 

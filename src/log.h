@@ -6,9 +6,9 @@
 #include <string>
 
 #define todd_TRACE(s, ...) todd::Logger::logger().printLog(todd::LogLevel::TRACE, (s), __VA_ARGS__)
-#define todd_DEBUG(s, ...) todd::Logger::logger().printLog(todd::LogLevel::DEBUG, (s), __VA_ARGS__)
-#define todd_INFO(s, ...) todd::Logger::logger().printLog(todd::LogLevel::INFO, (s), __VA_ARGS__)
-#define todd_WARN(s, ...) todd::Logger::logger().printLog(todd::LogLevel::WARN, (s), __VA_ARGS__)
+#define todd_DEBUG(s, ...) todd::Logger::logger().printLog(todd::LogLevel::DEBUG, (s),__VA_ARGS__)
+#define todd_INFO(s, ...)  todd::Logger::logger().printLog(todd::LogLevel::INFO, (s), __VA_ARGS__)
+#define todd_WARN(s, ...)  todd::Logger::logger().printLog(todd::LogLevel::WARN, (s), __VA_ARGS__)
 #define todd_ERROR(s, ...) todd::Logger::logger().printLog(todd::LogLevel::ERROR, (s), __VA_ARGS__)
 #define todd_FATAL(s, ...) todd::Logger::logger().printLog(todd::LogLevel::FATAL, (s), __VA_ARGS__)
 
