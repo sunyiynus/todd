@@ -2,12 +2,9 @@
 #include "datastruct.h"
 
 #include<sys/mman.h>
-
 #include <list>
 
 using namespace todd;
-
-
 
 
 void FileMapper::autoAdjustMapedSize()
@@ -25,6 +22,10 @@ void FileMapper::autoAdjustMapedSize()
 
 void* FileMapper::map(size_t pageIndex)
 {
+    if (error) {
+        return nullptr;
+    }
+
     auto res = mapped.find(pageIndex);
     if (res != mapped.end()) {
         cache.splice(cache.begin(), cache, res->second);
@@ -62,9 +63,10 @@ void FileMapper::unmap(size_t pageIndex)
     return;
 }
 
+
 void FileMapper::setFile(int fid)
 {
-    if (fid == fd) {
+    if (fid == fd || fid == -1) {
         return;
     }
     for( auto itr : mapped) {
